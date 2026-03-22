@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yashasw Porandla – Resume</title>
+
+  <!-- Google Fonts: Playfair Display for headings, Lato for body -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ─── CSS Variables ─────────────────────────────────────────── */
+    :root {
+      --dark:      #1a0a0a;   /* near-black for sidebar */
+      --crimson:   #8b1a1a;   /* deep red accent */
+      --crimson2:  #b22222;   /* slightly lighter red */
+      --off-white: #faf9f7;   /* warm page background */
+      --text:      #2c2c2c;   /* main body text */
+      --muted:     #777;      /* secondary text */
+      --rule:      #ddd;      /* light divider lines */
+      --sidebar-w: 270px;     /* fixed sidebar width */
+    }
+
+    /* ─── Reset & Base ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: #e8e4de;       /* subtle warm paper background */
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: var(--text);
+    }
+
+    /* ─── Outer card with paper-like shadow ─────────────────────── */
+    .resume-card {
+      display: flex;
+      width: 860px;
+      min-height: 1100px;
+      background: var(--off-white);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25), 0 4px 12px rgba(0,0,0,0.15);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SIDEBAR (left column)
+    ═══════════════════════════════════════════════════════════════ */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: var(--dark);
+      color: #e8d9d9;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative crimson gradient rising from the sidebar bottom */
+    .sidebar::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 220px;
+      background: linear-gradient(to top, var(--crimson) 0%, transparent 100%);
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    /* ── Initials placeholder (replace with <img> if photo available) */
+    .sidebar-photo-placeholder {
+      width: 100%;
+      height: 230px;
+      background: linear-gradient(160deg, #3a1a1a 0%, #6b1a1a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 52px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.18);
+      letter-spacing: -2px;
+    }
+
+    /* ── Name & title block ─────────────────────────────────────── */
+    .sidebar-name {
+      padding: 28px 26px 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .sidebar-name h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 27px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+
+    /* Job title displayed in uppercase crimson text */
+    .sidebar-name .job-title {
+      margin-top: 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--crimson2);
+      line-height: 1.4;
+    }
+
+    /* Small decorative rule below job title */
+    .sidebar-name::after {
+      content: '';
+      display: block;
+      width: 38px;
+      height: 3px;
+      background: var(--crimson2);
+      margin-top: 14px;
+      border-radius: 2px;
+    }
+
+    /* ── Generic sidebar section wrapper ────────────────────────── */
+    .sidebar-section {
+      padding: 20px 26px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Uppercase label above each sidebar section */
+    .sidebar-section-title {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: var(--crimson2);
+      margin-bottom: 12px;
+    }
+
+    /* Single row within a sidebar section (icon + text) */
+    .sidebar-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin-bottom: 10px;
+      font-size: 11.5px;
+      color: #cbb8b8;
+      line-height: 1.5;
+    }
+
+    .sidebar-item .icon {
+      flex-shrink: 0;
+      width: 14px;
+      margin-top: 2px;
+    }
+
+    /* Bulleted list used for languages and hobbies */
+    .sidebar-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar-list li {
+      font-size: 11.5px;
+      color: #cbb8b8;
+      padding: 3px 0 3px 14px;
+      position: relative;
+    }
+
+    /* Crimson dot as custom bullet */
+    .sidebar-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--crimson2);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       MAIN CONTENT (right column)
+    ═══════════════════════════════════════════════════════════════ */
+    .main {
+      flex: 1;
+      padding: 36px 38px 40px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Thin gradient bar at the very top of the main panel ─────── */
+    .top-bar {
+      height: 5px;
+      background: linear-gradient(90deg, var(--crimson) 0%, var(--crimson2) 60%, transparent 100%);
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+
+    /* ── Section wrapper with bottom margin ─────────────────────── */
+    .section { margin-bottom: 28px; }
+
+    /* Section title: small-caps crimson label with underline */
+    .section-title {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2.8px;
+      text-transform: uppercase;
+      color: var(--crimson);
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid var(--crimson);
+      display: inline-block;
+    }
+
+    /* ── Professional Summary ───────────────────────────────────── */
+    .summary p {
+      font-size: 12.5px;
+      line-height: 1.75;
+      color: #444;
+      font-weight: 300;
+    }
+
+    /* ── Education block ────────────────────────────────────────── */
+    .edu-entry { padding: 10px 0 14px; }
+
+    .edu-dates {
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .edu-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 3px;
+      line-height: 1.35;
+    }
+
+    /* Degree subtitle (specialisation) in lighter weight */
+    .edu-degree span {
+      font-family: 'Lato', sans-serif;
+      font-size: 12.5px;
+      font-weight: 300;
+      color: #555;
+    }
+
+    .edu-school {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--crimson);
+      margin-bottom: 1px;
+    }
+
+    .edu-loc {
+      font-size: 10.5px;
+      color: var(--muted);
+    }
+
+    /* ── Skills 2-column grid ───────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 30px;
+    }
+
+    .skill-name {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    /* Row of five dots representing skill level */
+    .skill-dots {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot.filled { background: var(--crimson); }   /* active level */
+    .dot.empty  { background: #ddd; }             /* inactive level */
+
+    /* Thin rule beneath each skill's dots */
+    .skill-rule {
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ── Placeholder shown when a section has no data ────────────── */
+    .no-data {
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+      padding: 8px 0;
+      font-weight: 300;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════════════════════════════╗
+     ║              RESUME CARD CONTAINER                      ║
+     ╚══════════════════════════════════════════════════════════╝ -->
+<div class="resume-card">
+
+  <!-- ╔══════════════════════════════╗
+       ║         SIDEBAR              ║
+       ╚══════════════════════════════╝ -->
+  <aside class="sidebar">
+
+    <!--if a photo is available -->
+    <img class="sidebar-photo" src="yp.jpeg" alt="Yashasw Porandla">
+
+    <!-- Candidate name and role -->
+    <div class="sidebar-name">
+      <h1>Yashasw<br>Porandla</h1>
+      <p class="job-title">Student</p>
+    </div>
+
+    <!-- ── Contact details ──────────────────────────────────── -->
+    <div class="sidebar-section">
+      <p class="sidebar-section-title">Contact</p>
+
+      <!-- Phone number -->
+      <div class="sidebar-item">
+        <span class="icon">📞</span>
+        <span>+91 6281 601 080</span>
+      </div>
+
+      <!-- Email address -->
+      <div class="sidebar-item">
+        <span class="icon">✉</span>
+        <span>pyashasw@gmail.com</span>
+      </div>
+
+      <!-- Physical location -->
+      <div class="sidebar-item">
+        <span class="icon">📍</span>
+        <span>Karimnagar,<br>Telangana, India</span>
+      </div>
+    </div>
+
+    <!-- ── Languages ─────────────────────────────────────────── -->
+    <div class="sidebar-section" style="margin-top:10px;">
+      <p class="sidebar-section-title">Languages</p>
+      <ul class="sidebar-list">
+        <li>Telugu</li>
+        <li>English</li>
+        <li>Hindi</li>
+      </ul>
+    </div>
+
+    <!-- ── Hobbies ───────────────────────────────────────────── -->
+    <div class="sidebar-section" style="margin-top:10px;">
+      <p class="sidebar-section-title">Hobbies</p>
+      <ul class="sidebar-list">
+	<li>Reading Books</li>
+        <li>Playing Cricket &amp; Football</li>
+        <li>Watching Movies</li>
+        <li>Listening to Songs</li>
+      </ul>
+    </div>
+
+  </aside>
+  <!-- end .sidebar -->
+
+
+  <!-- ╔══════════════════════════════╗
+       ║       MAIN CONTENT           ║
+       ╚══════════════════════════════╝ -->
+  <main class="main">
+
+    <!-- Thin gradient accent bar at the top -->
+    <div class="top-bar"></div>
+
+    <!-- ── PROFESSIONAL SUMMARY ─────────────────────────────── -->
+    <section class="section summary">
+      <p class="section-title">Professional Summary</p>
+      <p>
+        Undergraduate BBA student in Digital Business and Entrepreneurship with a strong interest
+        in marketing, branding, and digital content creation. Possesses strong communication skills,
+        an entrepreneurial mindset, and a passion for continuous learning and innovation.
+      </p>
+    </section>
+
+    <!-- ── EDUCATION ─────────────────────────────────────────── -->
+    <section class="section">
+      <p class="section-title">Education</p>
+
+      <div class="edu-entry">
+        <!-- Year range -->
+        <p class="edu-dates">2025 – Present</p>
+
+        <!-- Degree name with specialisation in lighter text -->
+        <p class="edu-degree">
+          Bachelor of Business Administration<br>
+          <span>(Digital Business &amp; Entrepreneurship)</span>
+        </p>
+
+        <!-- Institution -->
+        <p class="edu-school">IIM Bangalore</p>
+
+        <!-- City / country -->
+        <p class="edu-loc">Bangalore, India</p>
+      </div>
+       <div class="edu-entry-inter">
+        <!-- Year range -->
+        <p class="edu-dates">2021 – 2023</p>
+
+        <!-- Degree name with specialisation in lighter text -->
+        <p class="edu-degree">
+          Intermediate<br>
+          <span>(MPC)</span>
+        </p>
+
+        <!-- Institution -->
+        <p class="edu-school">Vidyamandir</p>
+
+        <!-- City / country -->
+        <p class="edu-loc">Karimnagar, India</p>
+      </div>
+       <div class="edu-entry">
+        <!-- Year range -->
+        <p class="edu-dates">2020 - 2021</p>
+
+        <!-- Degree name with specialisation in lighter text -->
+        <p class="edu-degree">
+          CBSE<br>
+          <span>(MPC)</span>
+        </p>
+
+        <!-- Institution -->
+        <p class="edu-school">Paramita Heritage School</p>
+
+        <!-- City / country -->
+        <p class="edu-loc">Karimnagar, India</p>
+      </div>	
+    </section>
+
+    <!-- ── SKILLS ────────────────────────────────────────────── -->
+    <section class="section">
+      <p class="section-title">Skills</p>
+
+      <div class="skills-grid">
+
+        <!-- C/C++ rated 3 out of 5 -->
+        <div class="skill-item">
+          <p class="skill-name">C / C++</p>
+          <div class="skill-dots">
+            <span class="dot filled"></span>
+            <span class="dot filled"></span>
+            <span class="dot filled"></span>
+            <span class="dot empty"></span>
+            <span class="dot empty"></span>
+          </div>
+          <div class="skill-rule"></div>
+        </div>
+
+        <!-- Python rated 3 out of 5 -->
+        <div class="skill-item">
+          <p class="skill-name">Python</p>
+          <div class="skill-dots">
+            <span class="dot filled"></span>
+            <span class="dot filled"></span>
+            <span class="dot filled"></span>
+            <span class="dot empty"></span>
+            <span class="dot empty"></span>
+          </div>
+          <div class="skill-rule"></div>
+        </div>
+
+        <!-- Java rated 3 out of 5 -->
+        <div class="skill-item">
+          <p class="skill-name">Java</p>
+          <div class="skill-dots">
+            <span class="dot filled"></span>
+            <span class="dot filled"></span>
+            <span class="dot filled"></span>
+            <span class="dot empty"></span>
+            <span class="dot empty"></span>
+          </div>
+          <div class="skill-rule"></div>
+        </div>
+
+        <!-- HTML rated 4 out of 5 -->
+        <div class="skill-item">
+          <p class="skill-name">HTML</p>
+          <div class="skill-dots">
+            <span class="dot filled"></span>
+            <span class="dot filled"></span>
+            <span class="dot filled"></span>
+            <span class="dot filled"></span>
+            <span class="dot empty"></span>
+          </div>
+          <div class="skill-rule"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── EXPERIENCE ────────────────────────────────────────── -->
+    <!-- No experience data provided; shown as a friendly placeholder -->
+    <section class="section">
+      <p class="section-title">Experience</p>
+      <p class="no-data">No work experience listed yet — ready to take on new opportunities!</p>
+    </section>
+
+  </main>
+  <!-- end .main -->
+
+</div>
+<!-- end .resume-card -->
+
+</body>
+</html>
